@@ -1,6 +1,7 @@
 package com.dev.encurta_ai.service;
 
 import com.dev.encurta_ai.dto.LinkResponse;
+import com.dev.encurta_ai.infra.exception.NotFoundException;
 import com.dev.encurta_ai.model.Link;
 import com.dev.encurta_ai.repository.LinkRepository;
 import jakarta.servlet.http.HttpServletRequest;
@@ -36,10 +37,10 @@ public class LinkService {
 
     public String recoverUrlOriginal(String urlShort, HttpServletRequest request){
         String urlOriginal = linkRepository.findByUrlShort(urlShort);
-        if(urlOriginal != null){
-            linkLogService.logClick(urlShort, request);
-            return urlOriginal;
+        if(urlOriginal == null){
+            throw new NotFoundException("Link not found");
         }
-        return null;
+        linkLogService.logClick(urlShort, request);
+        return urlOriginal;
     }
 }

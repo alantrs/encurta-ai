@@ -27,12 +27,13 @@ public class LinkController {
     }
 
     @GetMapping("/r/{urlShort}")
-    public void redirect(@PathVariable String urlShort, HttpServletRequest request, HttpServletResponse response){
+    public ResponseEntity<Void> redirect(@PathVariable String urlShort, HttpServletRequest request, HttpServletResponse response) {
         String urlOriginal = linkService.recoverUrlOriginal(urlShort, request);
         try {
             response.sendRedirect(urlOriginal);
+            return ResponseEntity.status(HttpStatus.OK).build();
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
 
