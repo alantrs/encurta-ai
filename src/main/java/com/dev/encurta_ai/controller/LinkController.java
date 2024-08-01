@@ -3,6 +3,7 @@ package com.dev.encurta_ai.controller;
 import com.dev.encurta_ai.dto.LinkResponse;
 import com.dev.encurta_ai.model.Link;
 import com.dev.encurta_ai.service.LinkService;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -26,8 +27,8 @@ public class LinkController {
     }
 
     @GetMapping("/r/{urlShort}")
-    public void redirect(@PathVariable String urlShort, HttpServletResponse response){
-        String urlOriginal = linkService.recoverUrlOriginal(urlShort);
+    public void redirect(@PathVariable String urlShort, HttpServletRequest request, HttpServletResponse response){
+        String urlOriginal = linkService.recoverUrlOriginal(urlShort, request);
         try {
             response.sendRedirect(urlOriginal);
         } catch (IOException e) {

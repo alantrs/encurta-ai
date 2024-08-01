@@ -17,6 +17,10 @@ public class Link {
     private String urlQrCode;
     private LocalDateTime createdAt;
 
+    public Link(){
+        this.createdAt = LocalDateTime.now();
+    }
+
     public Long getId() {
         return id;
     }
