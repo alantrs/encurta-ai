@@ -9,11 +9,12 @@ import java.time.LocalDateTime;
 public class Link {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     private String urlLong;
     private String urlShort;
+    @Column(columnDefinition="TEXT")
     private String urlQrCode;
     private LocalDateTime createdAt;
 
