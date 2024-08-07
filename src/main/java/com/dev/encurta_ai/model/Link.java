@@ -26,6 +26,15 @@ public class Link {
         return id;
     }
 
+    public Link(Long id, String urlLong, String urlShort, String urlQrCode, LocalDateTime createdAt) {
+        this.id = id;
+        this.urlLong = urlLong;
+        this.urlShort = urlShort;
+        this.urlQrCode = urlQrCode;
+        this.createdAt = createdAt;
+    }
+
+
     public void setId(Long id) {
         this.id = id;
     }
