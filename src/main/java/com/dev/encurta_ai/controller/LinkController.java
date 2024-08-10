@@ -21,8 +21,7 @@ public class LinkController {
     private LinkService linkService;
 
     @PostMapping("/encurta-ai")
-    public ResponseEntity<LinkResponse> createLink(@RequestBody Map<String, String > request){
-        String urlOriginal = request.get("urlOriginal");
+    public ResponseEntity<LinkResponse> createLink(@RequestParam String urlOriginal){
         LinkResponse linkResponse = linkService.createLink(urlOriginal);
         return ResponseEntity.status(HttpStatus.CREATED).body(linkResponse);
     }
