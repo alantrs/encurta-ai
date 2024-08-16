@@ -43,13 +43,18 @@ class LinkControllerTest {
     @Test
     @DisplayName("Should create link")
     void createLinkSuccess() throws Exception {
-        when(linkService.createLink(anyString())).thenReturn(new LinkResponse(link, anyString()));
-        String urlOriginal = "teste";
+        String urlOriginal = "Url long";
+        when(linkService.createLink(urlOriginal)).thenReturn(new LinkResponse(link, "Url short"));
 
-        mockMvc.perform(post("/encurta-ai")
+        ResultActions resultActions = mockMvc.perform(post("/encurta-ai")
                         .param("urlOriginal", urlOriginal)
                         .contentType(MediaType.APPLICATION_FORM_URLENCODED))
                         .andExpect(status().isCreated());
+
+        String jsonResponse = resultActions.andReturn().getResponse().getContentAsString();
+        LinkResponse response = objectMapper.readValue(jsonResponse, LinkResponse.class);
+        assertEquals(link.getUrlShort(), response.urlShort());
+        assertEquals(urlOriginal, response.urlLong());
     }
 
 }
