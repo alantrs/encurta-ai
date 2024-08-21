@@ -5,6 +5,7 @@ import com.dev.encurta_ai.infra.exception.NotFoundException;
 import com.dev.encurta_ai.model.Link;
 import com.dev.encurta_ai.repository.LinkRepository;
 import com.google.zxing.WriterException;
+import jakarta.servlet.ServletContext;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.transaction.Transactional;
 import org.apache.commons.lang3.RandomStringUtils;
@@ -18,8 +19,6 @@ import java.time.LocalDateTime;
 @Service
 public class LinkService {
 
-    private final String URL_REDIRECT = "http://localhost:8080/r/";
-
     @Autowired
     private LinkRepository linkRepository;
     @Autowired
@@ -32,17 +31,19 @@ public class LinkService {
     }
 
     @Transactional
-    public LinkResponse createLink(String urlOriginal){
+    public LinkResponse createLink(String urlOriginal, HttpServletRequest request){
         Link link = new Link();
         link.setUrlLong(urlOriginal);
         link.setUrlShort(createUrlShort());
+        String urlRedirect = request.getRequestURL().toString().replace(request.getRequestURI(), "") + "/r/" + link.getUrlShort();
+
         try {
-            String qrCodeBase64 = qrCodeService.generateQRCode(URL_REDIRECT + link.getUrlShort());
+            String qrCodeBase64 = qrCodeService.generateQRCode(urlRedirect);
             link.setUrlQrCode(qrCodeBase64);
         } catch (WriterException | IOException e) {
             link.setUrlQrCode("Error generating QR Code");
         }
-        return new LinkResponse(linkRepository.save(link), URL_REDIRECT + link.getUrlShort());
+        return new LinkResponse(linkRepository.save(link), urlRedirect);
     }
 
     public String recoverUrlOriginal(String urlShort, HttpServletRequest request){

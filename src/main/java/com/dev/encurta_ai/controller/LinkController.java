@@ -28,8 +28,8 @@ public class LinkController {
 
     @PostMapping("/encurta-ai")
     @Operation(summary = "Shorten a URL")
-    public ResponseEntity<LinkResponse> createLink(@RequestParam String urlOriginal){
-        LinkResponse linkResponse = linkService.createLink(urlOriginal);
+    public ResponseEntity<LinkResponse> createLink(@RequestParam String urlOriginal, HttpServletRequest request){
+        LinkResponse linkResponse = linkService.createLink(urlOriginal, request);
         return ResponseEntity.status(HttpStatus.CREATED).body(linkResponse);
     }
 

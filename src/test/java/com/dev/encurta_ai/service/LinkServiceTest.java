@@ -21,11 +21,7 @@ import java.time.LocalDateTime;
 
 import static org.assertj.core.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.any;
-import static org.mockito.Mockito.anyString;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 @ExtendWith({SpringExtension.class, MockitoExtension.class})
 class LinkServiceTest {
@@ -50,6 +46,8 @@ class LinkServiceTest {
     @BeforeEach
     void setUp(){
         link = new Link(1L, "Url long", "Url short", "QR Code", LocalDateTime.now());
+        lenient().when(request.getRequestURL()).thenReturn(new StringBuffer("http://localhost:8080"));
+        lenient().when(request.getRequestURI()).thenReturn("/some/uri");
     }
 
 
@@ -59,7 +57,7 @@ class LinkServiceTest {
         when(qrCodeService.generateQRCode(anyString())).thenReturn("QR Code");
         when(linkRepository.save(any(Link.class))).thenReturn(link);
 
-        LinkResponse linkSaved = linkService.createLink("Url long");
+        LinkResponse linkSaved = linkService.createLink("Url long", request);
 
         assertThat(linkSaved).isNotNull();
         assertThat(linkSaved.id()).isEqualTo(1L);
