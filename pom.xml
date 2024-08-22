@@ -9,7 +9,7 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.dev</groupId>
-	<artifactId>encurta-ai</artifactId>
+	<artifactId>shorten-it</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>encurta-ai</name>
 	<description>Projeto de encurtar URL</description>
