@@ -9,7 +9,7 @@ RUN mvn clean install
 
 FROM amazoncorretto:17-alpine3.17
 
-COPY --from=build /app/target/encurta-ai-0.0.1-SNAPSHOT.jar /app/app.jar
+COPY --from=build /app/target/shorten-it-0.0.1-SNAPSHOT.jar /app/app.jar
 
 WORKDIR /app
 
