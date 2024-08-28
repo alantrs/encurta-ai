@@ -18,7 +18,12 @@ public class Link {
     private String urlQrCode;
     private LocalDateTime createdAt;
 
-    public Link(){
+    public Link() {
+    }
+
+    public Link(String urlLong, String urlShort){
+        this.urlLong = urlLong;
+        this.urlShort = urlShort;
         this.createdAt = LocalDateTime.now();
     }
 

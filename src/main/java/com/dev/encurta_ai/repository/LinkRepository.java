@@ -8,4 +8,6 @@ public interface LinkRepository extends JpaRepository<Link, Long> {
 
     @Query(value = "SELECT url_long FROM tb_link where url_short = :urlShort", nativeQuery = true)
     String findByUrlShort(String urlShort);
+
+    boolean existsByUrlShort(String urlShort);
 }

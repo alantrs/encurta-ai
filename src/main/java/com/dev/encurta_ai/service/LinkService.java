@@ -32,10 +32,15 @@ public class LinkService {
 
     @Transactional
     public LinkResponse createLink(String urlOriginal, HttpServletRequest request){
-        Link link = new Link();
-        link.setUrlLong(urlOriginal);
-        link.setUrlShort(createUrlShort());
-        String urlRedirect = request.getRequestURL().toString().replace(request.getRequestURI(), "") + "/r/" + link.getUrlShort();
+        String urlShort;
+
+        do {
+            urlShort = this.createUrlShort();
+        }while(linkRepository.existsByUrlShort(urlShort));
+
+        Link link = new Link(urlOriginal, urlShort);
+
+        String urlRedirect = request.getRequestURL().toString().replace(request.getRequestURI(), "/" + link.getUrlShort());
 
         try {
             String qrCodeBase64 = qrCodeService.generateQRCode(urlRedirect);
