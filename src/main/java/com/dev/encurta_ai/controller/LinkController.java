@@ -11,11 +11,13 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
+import java.net.URI;
 import java.util.Map;
 
 @RestController
@@ -33,16 +35,14 @@ public class LinkController {
         return ResponseEntity.status(HttpStatus.CREATED).body(linkResponse);
     }
 
-    @GetMapping("/r/{urlShort}")
+    @GetMapping("{urlShort}")
     @Hidden
-    public ResponseEntity<Void> redirect(@PathVariable String urlShort, HttpServletRequest request, HttpServletResponse response) {
+    public ResponseEntity<Void> redirect(@PathVariable String urlShort, HttpServletRequest request) {
         String urlOriginal = linkService.recoverUrlOriginal(urlShort, request);
-        try {
-            response.sendRedirect(urlOriginal);
-            return ResponseEntity.status(HttpStatus.FOUND).build();
-        } catch (IOException e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
-        }
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.setLocation(URI.create(urlOriginal));
+        return ResponseEntity.status(HttpStatus.FOUND).headers(headers).build();
     }
 
 }
