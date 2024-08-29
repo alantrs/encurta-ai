@@ -1,6 +1,5 @@
 services:
-  - type: postgres
-    name: db
+  - type: database
     env:
       POSTGRES_USER: ${POSTGRES_USER}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
