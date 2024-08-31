@@ -1,10 +1,10 @@
 <h1 align="center" style="font-weight: bold;">Encurta ai 🔗</h1>
 
-<p align="center">
+<p>
     <b>Este projeto é um backend simples desenvolvido para encurtar URLs. A ideia é permitir que o usuário insira uma URL longa e receba uma URL encurtada. Ao acessar a URL encurtada, o usuário será redirecionado para a URL original.</b>
 </p>
 
-<h3>📌 Objetivos do Projeto</h3>
+### Objetivos do Projeto
 
 - **Estudo e prática de deploy**: Desenvolver habilidades em deploy de aplicações Java.
 
@@ -17,7 +17,7 @@
   - Deploy da aplicação em uma instância EC2 da AWS.
   - Deploy da aplicação no Railway.
  
-<h3>💻 Tecnologias</h3>
+### Tecnologias
 
 - Java
 - Spring boot
@@ -26,11 +26,11 @@
 - AWS
 - Railway
 
-<h3>🚀 Pré requisitos</h3>
+### Pré requisitos
 
 - [Docker](https://docs.docker.com/engine/install/).
 
-<h3>🚀 Clone o projeto</h3>
+### Clone o projeto
 
 Execute o comando abaixo para clonar o repositório
 
@@ -38,7 +38,7 @@ Execute o comando abaixo para clonar o repositório
 git clone https://github.com/alantrs/encurta-ai
 ```
 
-<h3>⚙️ Configure as variaveis de ambiente</h3>
+<h3>Configure as variaveis de ambiente</h3>
 
 Crie os arquivos `app.env` e `postgres.env` e coloque-os em uma pasta nomeada `env` no root do projeto.
 
@@ -60,7 +60,7 @@ POSTGRES_USER=seu usuario
 POSTGRES_PASSWORD=sua senha
 ```
 
-<h3>Iniciar a aplicação</h3>
+### Iniciar a aplicação
 
 ```bash
 cd encurta-ai
