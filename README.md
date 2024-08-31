@@ -16,15 +16,6 @@
 - **Deploy em diferentes plataformas**:
   - Deploy da aplicação em uma instância EC2 da AWS.
   - Deploy da aplicação no Railway.
- 
-### Tecnologias
-
-- Java
-- Spring boot
-- Postgresql
-- Docker
-- AWS
-- Railway
 
 ### Pré requisitos
 
